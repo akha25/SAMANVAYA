@@ -37,11 +37,11 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 p-4">
-      <Card className="w-full max-w-md bg-zinc-900 border-zinc-800 text-zinc-100">
+    <div className="flex min-h-screen items-center justify-center bg-[#F8FAFC] p-4">
+      <Card className="w-full max-w-md bg-white border-slate-100 text-slate-800">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold tracking-tight">Create an account</CardTitle>
-          <CardDescription className="text-zinc-400">
+          <CardDescription className="text-slate-500">
             Enter your details below to create your account
           </CardDescription>
         </CardHeader>
@@ -55,7 +55,7 @@ export default function RegisterPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="bg-zinc-800 border-zinc-700"
+                className="bg-slate-50 border-slate-200"
               />
             </div>
             <div className="space-y-2">
@@ -67,7 +67,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-zinc-800 border-zinc-700"
+                className="bg-slate-50 border-slate-200"
               />
             </div>
             <div className="space-y-2">
@@ -78,25 +78,25 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-zinc-800 border-zinc-700"
+                className="bg-slate-50 border-slate-200"
               />
             </div>
             {error && <p className="text-sm text-red-500">{error}</p>}
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-slate-800">
               Sign up
             </Button>
           </form>
           <div className="mt-4 flex items-center justify-between">
-            <span className="w-1/5 border-b border-zinc-700 lg:w-1/4"></span>
-            <span className="text-xs text-center text-zinc-400 uppercase">or sign up with</span>
-            <span className="w-1/5 border-b border-zinc-700 lg:w-1/4"></span>
+            <span className="w-1/5 border-b border-slate-200 lg:w-1/4"></span>
+            <span className="text-xs text-center text-slate-500 uppercase">or sign up with</span>
+            <span className="w-1/5 border-b border-slate-200 lg:w-1/4"></span>
           </div>
-          <Button variant="outline" className="w-full mt-4 border-zinc-700 text-zinc-300 hover:bg-zinc-800">
+          <Button variant="outline" className="w-full mt-4 border-slate-200 text-slate-600 hover:bg-slate-50">
             Google OAuth (Coming Soon)
           </Button>
         </CardContent>
         <CardFooter>
-          <p className="text-sm text-center text-zinc-400 w-full">
+          <p className="text-sm text-center text-slate-500 w-full">
             Already have an account?{" "}
             <Link href="/login" className="text-blue-500 hover:underline">
               Sign in

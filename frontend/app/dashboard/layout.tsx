@@ -9,29 +9,29 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const navItems = [
     { name: "Overview", href: "/dashboard", icon: Home },
+    { name: "Add Data", href: "/dashboard/add-data", icon: Activity },
     { name: "Diet", href: "/dashboard/diet", icon: Apple },
     { name: "Workout", href: "/dashboard/workout", icon: Dumbbell },
-    { name: "BMI & Reports", href: "/dashboard/bmi", icon: Activity },
+    { name: "Requests", href: "/dashboard/requests", icon: Users },
     { name: "AI Coach", href: "/dashboard/ai-coach", icon: Bot },
-    { name: "Community", href: "/community", icon: Users },
   ];
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col md:flex-row pb-16 md:pb-0">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col md:flex-row pb-16 md:pb-0 font-sans">
       {/* Desktop Sidebar Navigation */}
-      <aside className="hidden md:flex w-64 bg-zinc-900 border-r border-zinc-800 p-6 flex-col gap-6 sticky top-0 h-screen">
-        <div className="font-bold text-2xl tracking-tight text-white mb-8">
-          Samanvaya
+      <aside className="hidden md:flex w-64 bg-white border-r border-slate-200 p-6 flex-col gap-6 sticky top-0 h-screen shadow-sm">
+        <div className="font-bold text-3xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-500 mb-8">
+          SAMANVAYA
         </div>
         <nav className="flex flex-col gap-2">
           {navItems.map((item) => (
             <Link 
               key={item.href}
               href={item.href} 
-              className={`px-4 py-2 rounded-lg flex items-center gap-3 transition-colors ${
+              className={`px-4 py-3 rounded-xl flex items-center gap-3 transition-all ${
                 pathname === item.href 
-                  ? "bg-zinc-800 text-white font-medium" 
-                  : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                  ? "bg-teal-50 text-teal-600 font-semibold" 
+                  : "text-slate-500 hover:bg-slate-50 hover:text-teal-600"
               }`}
             >
               <item.icon size={20} />
@@ -40,10 +40,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           ))}
           <Link 
             href="/dashboard/profile" 
-            className={`px-4 py-2 rounded-lg flex items-center gap-3 transition-colors mt-auto ${
+            className={`px-4 py-3 rounded-xl flex items-center gap-3 transition-all mt-auto ${
               pathname === "/dashboard/profile" 
-                ? "bg-zinc-800 text-white font-medium" 
-                : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                ? "bg-teal-50 text-teal-600 font-semibold" 
+                : "text-slate-500 hover:bg-slate-50 hover:text-teal-600"
             }`}
           >
             <UserCircle size={20} />
@@ -54,17 +54,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       
       {/* Main Content Area */}
       <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+        {/* Mobile Header */}
+        <div className="md:hidden flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
+          <div className="font-bold text-2xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-500">
+            SAMANVAYA
+          </div>
+          <Link href="/dashboard/profile" className="text-slate-500">
+            <UserCircle size={24} />
+          </Link>
+        </div>
         {children}
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 flex justify-around items-center p-3 z-50">
-        {navItems.map((item) => (
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 flex justify-around items-center p-3 z-50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+        {navItems.slice(0, 5).map((item) => (
           <Link 
             key={item.href}
             href={item.href} 
             className={`flex flex-col items-center gap-1 ${
-              pathname === item.href ? "text-blue-500" : "text-zinc-400"
+              pathname === item.href ? "text-teal-600 font-medium" : "text-slate-400"
             }`}
           >
             <item.icon size={20} />

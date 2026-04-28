@@ -34,39 +34,39 @@ export default function ReportsPage() {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold tracking-tight">Weekly Health Report</h1>
-        <Button onClick={downloadPDF} className="bg-blue-600 hover:bg-blue-700 text-white">
+        <Button onClick={downloadPDF} className="bg-blue-600 hover:bg-blue-700 text-slate-800">
           Download as PDF
         </Button>
       </div>
 
       <div ref={reportRef} className="space-y-6">
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
+        <Card className="bg-white border-slate-100 text-slate-800">
           <CardHeader>
             <CardTitle>Week Summary: Oct 1 - Oct 7</CardTitle>
-            <CardDescription className="text-zinc-400">Great job! You are consistently hitting your goals.</CardDescription>
+            <CardDescription className="text-slate-500">Great job! You are consistently hitting your goals.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              <div className="bg-zinc-800 p-4 rounded-md text-center">
+              <div className="bg-slate-50 p-4 rounded-md text-center">
                 <div className="text-2xl font-bold text-green-500">-1.2 kg</div>
-                <div className="text-sm text-zinc-400">Weight Change</div>
+                <div className="text-sm text-slate-500">Weight Change</div>
               </div>
-              <div className="bg-zinc-800 p-4 rounded-md text-center">
+              <div className="bg-slate-50 p-4 rounded-md text-center">
                 <div className="text-2xl font-bold text-blue-400">4</div>
-                <div className="text-sm text-zinc-400">Workouts</div>
+                <div className="text-sm text-slate-500">Workouts</div>
               </div>
-              <div className="bg-zinc-800 p-4 rounded-md text-center">
+              <div className="bg-slate-50 p-4 rounded-md text-center">
                 <div className="text-2xl font-bold text-yellow-500">2071</div>
-                <div className="text-sm text-zinc-400">Avg Calories</div>
+                <div className="text-sm text-slate-500">Avg Calories</div>
               </div>
-              <div className="bg-zinc-800 p-4 rounded-md text-center">
+              <div className="bg-slate-50 p-4 rounded-md text-center">
                 <div className="text-2xl font-bold text-cyan-400">6.5</div>
-                <div className="text-sm text-zinc-400">Avg Water (Glasses)</div>
+                <div className="text-sm text-slate-500">Avg Water (Glasses)</div>
               </div>
             </div>
 
             <h3 className="font-bold mb-4">Weight Trend</h3>
-            <div className="h-64 w-full text-zinc-900">
+            <div className="h-64 w-full text-slate-800">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={mockData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
@@ -78,9 +78,9 @@ export default function ReportsPage() {
               </ResponsiveContainer>
             </div>
             
-            <div className="mt-8 bg-zinc-800 p-6 rounded-md">
-               <h3 className="font-bold mb-2 text-lg text-white">AI Insights</h3>
-               <ul className="list-disc pl-5 space-y-2 text-zinc-300">
+            <div className="mt-8 bg-slate-50 p-6 rounded-md">
+               <h3 className="font-bold mb-2 text-lg text-slate-800">AI Insights</h3>
+               <ul className="list-disc pl-5 space-y-2 text-slate-600">
                  <li>You hit your calorie goal 5 out of 7 days — excellent consistency!</li>
                  <li>Your protein intake averaged 110g, which is perfect for your muscle gain goal.</li>
                  <li>Remember to drink more water on the weekends; you dropped to 4 glasses on Saturday.</li>

@@ -75,28 +75,28 @@ export default function AICoachPage() {
         <h1 className="text-3xl font-bold tracking-tight">AI Coach Aanya</h1>
       </div>
 
-      <Card className="flex-1 bg-zinc-900 border-zinc-800 flex flex-col overflow-hidden">
+      <Card className="flex-1 bg-white border-slate-100 flex flex-col overflow-hidden">
         {/* Chat Area */}
         <div ref={scrollRef} className="flex-1 p-6 overflow-y-auto space-y-6">
           {messages.map((msg, idx) => (
             <div key={idx} className={`flex gap-4 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               {msg.role === 'ai' && (
                 <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
-                  <Bot size={18} className="text-white" />
+                  <Bot size={18} className="text-slate-800" />
                 </div>
               )}
               
               <div className={`px-4 py-3 rounded-2xl max-w-[80%] ${
                 msg.role === 'user' 
-                  ? 'bg-blue-600 text-white rounded-tr-sm' 
-                  : 'bg-zinc-800 text-zinc-100 rounded-tl-sm'
+                  ? 'bg-blue-600 text-slate-800 rounded-tr-sm' 
+                  : 'bg-slate-50 text-slate-800 rounded-tl-sm'
               }`}>
                 {msg.content}
               </div>
 
               {msg.role === 'user' && (
-                <div className="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center shrink-0">
-                  <UserIcon size={18} className="text-zinc-300" />
+                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
+                  <UserIcon size={18} className="text-slate-600" />
                 </div>
               )}
             </div>
@@ -105,25 +105,25 @@ export default function AICoachPage() {
           {isTyping && (
             <div className="flex gap-4 justify-start">
               <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
-                <Bot size={18} className="text-white" />
+                <Bot size={18} className="text-slate-800" />
               </div>
-              <div className="px-4 py-3 rounded-2xl bg-zinc-800 text-zinc-100 rounded-tl-sm flex items-center gap-1">
-                <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce delay-75"></span>
-                <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce delay-150"></span>
+              <div className="px-4 py-3 rounded-2xl bg-slate-50 text-slate-800 rounded-tl-sm flex items-center gap-1">
+                <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
+                <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-75"></span>
+                <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-150"></span>
               </div>
             </div>
           )}
         </div>
 
         {/* Input Area */}
-        <div className="p-4 border-t border-zinc-800 bg-zinc-900 shrink-0">
+        <div className="p-4 border-t border-slate-100 bg-white shrink-0">
           <div className="flex flex-wrap gap-2 mb-4">
             {quickActions.map((action, idx) => (
               <button 
                 key={idx}
                 onClick={() => handleSend(action)}
-                className="text-xs px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-full transition-colors border border-zinc-700"
+                className="text-xs px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-full transition-colors border border-slate-200"
               >
                 {action}
               </button>
@@ -137,7 +137,7 @@ export default function AICoachPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Message Aanya..." 
-              className="flex-1 bg-zinc-800 border-zinc-700 h-12 text-md"
+              className="flex-1 bg-slate-50 border-slate-200 h-12 text-md"
             />
             <Button type="submit" disabled={!input.trim() || isTyping} className="bg-blue-600 hover:bg-blue-700 h-12 px-6">
               <SendHorizontal size={20} />

@@ -58,39 +58,39 @@ export default function BMIPage() {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold tracking-tight">BMI & Health</h1>
-        <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => window.location.href='/dashboard/reports'}>
+        <Button className="bg-blue-600 hover:bg-blue-700 text-slate-800" onClick={() => window.location.href='/dashboard/reports'}>
           View Weekly Reports
         </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
+        <Card className="bg-white border-slate-100 text-slate-800">
           <CardHeader>
             <CardTitle>BMI Calculator</CardTitle>
-            <CardDescription className="text-zinc-400">Calculate your Body Mass Index</CardDescription>
+            <CardDescription className="text-slate-500">Calculate your Body Mass Index</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex gap-4">
               <div className="flex-1 space-y-2">
-                <label className="text-sm text-zinc-400">Height (cm)</label>
-                <Input type="number" value={height} onChange={(e) => setHeight(Number(e.target.value))} className="bg-zinc-800 border-zinc-700" />
+                <label className="text-sm text-slate-500">Height (cm)</label>
+                <Input type="number" value={height} onChange={(e) => setHeight(Number(e.target.value))} className="bg-slate-50 border-slate-200" />
               </div>
               <div className="flex-1 space-y-2">
-                <label className="text-sm text-zinc-400">Weight (kg)</label>
-                <Input type="number" value={weight} onChange={(e) => setWeight(Number(e.target.value))} className="bg-zinc-800 border-zinc-700" />
+                <label className="text-sm text-slate-500">Weight (kg)</label>
+                <Input type="number" value={weight} onChange={(e) => setWeight(Number(e.target.value))} className="bg-slate-50 border-slate-200" />
               </div>
             </div>
             
             <div className="pt-6 flex flex-col items-center">
               <div className={`text-5xl font-bold ${color}`}>{bmi.toFixed(1)}</div>
               <div className="text-xl font-medium mt-2">{category}</div>
-              <p className="text-sm text-zinc-400 mt-2">
+              <p className="text-sm text-slate-500 mt-2">
                 Ideal weight range: {idealWeightMin}kg - {idealWeightMax}kg
               </p>
             </div>
             
             {/* Simple Gauge */}
-            <div className="w-full h-4 bg-zinc-800 rounded-full mt-4 overflow-hidden flex">
+            <div className="w-full h-4 bg-slate-50 rounded-full mt-4 overflow-hidden flex">
               <div className="h-full bg-yellow-500" style={{ width: '18.5%' }} title="Underweight"></div>
               <div className="h-full bg-green-500" style={{ width: '31.5%' }} title="Normal"></div>
               <div className="h-full bg-orange-500" style={{ width: '25%' }} title="Overweight"></div>
@@ -101,25 +101,25 @@ export default function BMIPage() {
                <div className="absolute top-0 w-2 h-2 bg-white rounded-full transform -translate-x-1/2" style={{ left: `${Math.min(100, Math.max(0, (bmi / 40) * 100))}%` }}></div>
             </div>
 
-            <Button onClick={handleLogMetrics} className="w-full mt-4 bg-zinc-800 hover:bg-zinc-700">Save Today's Metrics</Button>
+            <Button onClick={handleLogMetrics} className="w-full mt-4 bg-slate-50 hover:bg-slate-100">Save Today's Metrics</Button>
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
+        <Card className="bg-white border-slate-100 text-slate-800">
           <CardHeader>
             <CardTitle>BMR & TDEE</CardTitle>
-            <CardDescription className="text-zinc-400">Your Energy Expenditure</CardDescription>
+            <CardDescription className="text-slate-500">Your Energy Expenditure</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="bg-zinc-800 p-4 rounded-lg">
+            <div className="bg-slate-50 p-4 rounded-lg">
               <h3 className="font-bold text-lg mb-1">Basal Metabolic Rate (BMR)</h3>
-              <p className="text-sm text-zinc-400 mb-2">Calories burned at rest.</p>
-              <div className="text-3xl font-bold text-blue-400">{Math.round(bmr)} <span className="text-sm text-zinc-400">kcal/day</span></div>
+              <p className="text-sm text-slate-500 mb-2">Calories burned at rest.</p>
+              <div className="text-3xl font-bold text-blue-400">{Math.round(bmr)} <span className="text-sm text-slate-500">kcal/day</span></div>
             </div>
             
-            <div className="bg-zinc-800 p-4 rounded-lg">
+            <div className="bg-slate-50 p-4 rounded-lg">
               <h3 className="font-bold text-lg mb-1">Total Daily Energy Expenditure</h3>
-              <p className="text-sm text-zinc-400 mb-2">Calories burned based on activity.</p>
+              <p className="text-sm text-slate-500 mb-2">Calories burned based on activity.</p>
               <div className="flex justify-between items-center text-sm mb-1">
                 <span>Sedentary:</span>
                 <span className="font-bold">{Math.round(tdeeSedentary)} kcal</span>

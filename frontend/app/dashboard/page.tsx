@@ -1,131 +1,178 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { LineChart, Line, ResponsiveContainer, YAxis } from "recharts";
-import { Droplet, Flame, Target, Trophy, Dumbbell, Sparkles } from "lucide-react";
-
-const weightData = [
-  { weight: 72 }, { weight: 71.5 }, { weight: 71.2 }, { weight: 70.8 }, { weight: 70.5 }, { weight: 70.2 }
-];
+import { LineChart, Line, BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
+import { Activity, Flame, HeartPulse, Footprints, Loader2 } from "lucide-react";
+import api from "@/lib/api";
+import { toast } from "react-hot-toast";
 
 export default function DashboardOverviewPage() {
-  const userName = "Alex"; // This would normally come from context/API
-  const caloriesConsumed = 1450;
-  const calorieGoal = 2200;
-  const waterGlasses = 5;
-  
+  const [healthData, setHealthData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [userName, setUserName] = useState("User");
+
+  useEffect(() => {
+    // Fetch profile and health data
+    const fetchData = async () => {
+      try {
+        const userStr = localStorage.getItem('user');
+        if (userStr) {
+          const user = JSON.parse(userStr);
+          setUserName(user.name || "User");
+        }
+
+        const res = await api.get('/health/get');
+        if (res.data.success) {
+          setHealthData(res.data.data.reverse()); // latest at the end for charts
+        }
+      } catch (error) {
+        toast.error("Failed to fetch health data");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div className="min-h-full flex items-center justify-center text-teal-600"><Loader2 className="animate-spin w-8 h-8" /></div>;
+  }
+
+  // Calculate totals or latest values
+  const latestEntry = healthData.length > 0 ? healthData[healthData.length - 1] : null;
+  const currentSteps = latestEntry?.steps || 0;
+  const currentCalories = latestEntry?.calories || 0;
+  const currentHeartRate = latestEntry?.heartRate || 0;
+  const currentActivity = latestEntry?.activityType || "None";
+
+  // Chart data formatting
+  const chartData = healthData.map(d => ({
+    date: new Date(d.timestamp).toLocaleDateString('en-US', { weekday: 'short' }),
+    steps: d.steps,
+    calories: d.calories
+  }));
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-in fade-in duration-500">
       {/* 1. Greeting Card */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
-        <h1 className="text-3xl font-bold mb-2">Good Morning, {userName}! 🌅</h1>
-        <p className="text-blue-100 text-lg">Ready to crush your goals today? Let's make it count.</p>
+      <div className="bg-gradient-to-r from-teal-500 to-blue-500 rounded-3xl p-8 text-slate-800 shadow-md shadow-teal-500/20">
+        <h1 className="text-4xl font-bold mb-2">Hello, {userName} 👋</h1>
+        <p className="text-teal-50 text-lg">Here is your daily health summary.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* 2. Calorie Ring */}
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100 col-span-1 md:col-span-2 lg:col-span-1 flex flex-col justify-center items-center py-6">
-          <CardTitle className="text-sm text-zinc-400 mb-4 flex items-center gap-2"><Flame size={16} className="text-orange-500"/> Daily Calories</CardTitle>
-          <div className="relative w-32 h-32 flex items-center justify-center rounded-full border-8 border-zinc-800">
-            <div 
-              className="absolute inset-0 rounded-full border-8 border-orange-500" 
-              style={{ clipPath: `polygon(0 0, 100% 0, 100% ${(caloriesConsumed/calorieGoal)*100}%, 0 100%)` }} 
-            />
-            <div className="text-center">
-              <span className="text-2xl font-bold block">{caloriesConsumed}</span>
-              <span className="text-xs text-zinc-400">/ {calorieGoal} kcal</span>
-            </div>
-          </div>
-        </Card>
-
-        {/* 3. Water Tracker */}
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
+        {/* Stat Cards */}
+        <Card className="bg-white border-slate-100 shadow-sm rounded-2xl hover:shadow-md transition-shadow">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-zinc-400 flex items-center gap-2"><Droplet size={16} className="text-blue-500"/> Hydration</CardTitle>
+            <CardTitle className="text-sm font-semibold text-slate-500 flex items-center gap-2"><Footprints size={18} className="text-teal-500"/> Steps</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col items-center justify-center h-full pb-8">
-            <div className="text-4xl font-bold text-blue-400 mb-2">{waterGlasses} <span className="text-lg text-zinc-500">/ 8</span></div>
-            <p className="text-xs text-zinc-400">Glasses today</p>
+          <CardContent>
+            <div className="text-4xl font-bold text-slate-800">{currentSteps.toLocaleString()}</div>
+            <p className="text-xs text-slate-400 mt-1">Today</p>
           </CardContent>
         </Card>
 
-        {/* 4. Today's Workout */}
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
+        <Card className="bg-white border-slate-100 shadow-sm rounded-2xl hover:shadow-md transition-shadow">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-zinc-400 flex items-center gap-2"><Dumbbell size={16} className="text-purple-500"/> Today's Plan</CardTitle>
+            <CardTitle className="text-sm font-semibold text-slate-500 flex items-center gap-2"><Flame size={18} className="text-orange-500"/> Calories</CardTitle>
           </CardHeader>
-          <CardContent className="h-full pb-8 flex flex-col justify-center">
-             <div className="font-bold text-xl text-white mb-1">Upper Body Power</div>
-             <p className="text-sm text-zinc-400 mb-4">45 mins • 6 exercises</p>
-             <button className="w-full bg-zinc-800 hover:bg-zinc-700 text-white py-2 rounded-md text-sm transition-colors">Start Workout</button>
+          <CardContent>
+            <div className="text-4xl font-bold text-slate-800">{currentCalories.toLocaleString()}</div>
+            <p className="text-xs text-slate-400 mt-1">kcal burned</p>
           </CardContent>
         </Card>
 
-        {/* 5. Weight Trend Sparkline */}
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
+        <Card className="bg-white border-slate-100 shadow-sm rounded-2xl hover:shadow-md transition-shadow">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-zinc-400">Weight Trend</CardTitle>
+            <CardTitle className="text-sm font-semibold text-slate-500 flex items-center gap-2"><HeartPulse size={18} className="text-rose-500"/> Heart Rate</CardTitle>
           </CardHeader>
-          <CardContent className="h-full pb-8">
-             <div className="text-2xl font-bold text-white mb-2">70.2 <span className="text-sm text-green-500">-1.8 kg</span></div>
-             <div className="h-16 w-full">
+          <CardContent>
+            <div className="text-4xl font-bold text-slate-800">{currentHeartRate} <span className="text-xl text-slate-400 font-medium">bpm</span></div>
+            <p className="text-xs text-slate-400 mt-1">Average today</p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-white border-slate-100 shadow-sm rounded-2xl hover:shadow-md transition-shadow">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-semibold text-slate-500 flex items-center gap-2"><Activity size={18} className="text-blue-500"/> Activity</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-slate-800 capitalize truncate">{currentActivity}</div>
+            <p className="text-xs text-slate-400 mt-1">Latest session</p>
+          </CardContent>
+        </Card>
+
+        {/* Charts */}
+        <Card className="bg-white border-slate-100 shadow-sm rounded-2xl col-span-1 md:col-span-2">
+          <CardHeader>
+            <CardTitle className="text-lg font-bold text-slate-800">Steps Over Time</CardTitle>
+          </CardHeader>
+          <CardContent className="h-64">
+             {chartData.length > 0 ? (
                <ResponsiveContainer width="100%" height="100%">
-                 <LineChart data={weightData}>
-                   <YAxis domain={['dataMin', 'dataMax']} hide />
-                   <Line type="monotone" dataKey="weight" stroke="#3b82f6" strokeWidth={3} dot={false} />
+                 <LineChart data={chartData}>
+                   <XAxis dataKey="date" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+                   <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+                   <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}/>
+                   <Line type="monotone" dataKey="steps" stroke="#0D9488" strokeWidth={4} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
                  </LineChart>
                </ResponsiveContainer>
-             </div>
+             ) : (
+               <div className="h-full flex items-center justify-center text-slate-400">No data available</div>
+             )}
           </CardContent>
         </Card>
 
-        {/* 6. Daily Wellness Tip */}
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100 col-span-1 md:col-span-2">
-          <CardContent className="p-6 flex items-start gap-4">
-            <div className="bg-blue-600/20 p-3 rounded-full text-blue-500 shrink-0">
-               <Sparkles size={24} />
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-1">Aanya's Tip of the Day</h3>
-              <p className="text-zinc-400 text-sm leading-relaxed">
-                Drinking a glass of warm water with lemon first thing in the morning can kickstart your digestion and provide a gentle dose of Vitamin C. Try it tomorrow!
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* 7. Streak Counter */}
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-zinc-400 flex items-center gap-2"><Trophy size={16} className="text-yellow-500"/> Current Streak</CardTitle>
+        <Card className="bg-white border-slate-100 shadow-sm rounded-2xl col-span-1 md:col-span-2">
+          <CardHeader>
+            <CardTitle className="text-lg font-bold text-slate-800">Calories Per Day</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col items-center justify-center pt-2 pb-6">
-            <div className="text-5xl font-bold text-yellow-500 mb-2">12</div>
-            <p className="text-sm text-zinc-400">Days active!</p>
+          <CardContent className="h-64">
+             {chartData.length > 0 ? (
+               <ResponsiveContainer width="100%" height="100%">
+                 <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                   <XAxis dataKey="date" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+                   <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+                   <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} cursor={{ fill: '#f1f5f9' }} />
+                   <Bar dataKey="calories" fill="#3B82F6" radius={[6, 6, 0, 0]} />
+                 </BarChart>
+               </ResponsiveContainer>
+             ) : (
+               <div className="h-full flex items-center justify-center text-slate-400">No data available</div>
+             )}
           </CardContent>
         </Card>
 
-        {/* 8. Goal Progress */}
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-zinc-400 flex items-center gap-2"><Target size={16} className="text-green-500"/> Weekly Goal</CardTitle>
+        {/* Recent Activity Timeline */}
+        <Card className="bg-white border-slate-100 shadow-sm rounded-2xl col-span-1 md:col-span-4">
+          <CardHeader>
+            <CardTitle className="text-lg font-bold text-slate-800">Recent Activity</CardTitle>
           </CardHeader>
-          <CardContent className="pt-2 pb-6 space-y-4">
-             <div>
-               <div className="flex justify-between text-xs text-zinc-400 mb-1">
-                 <span>Workouts (3/5)</span>
-                 <span>60%</span>
-               </div>
-               <Progress value={60} className="h-2 bg-zinc-800 [&>div]:bg-green-500" />
-             </div>
-             <div>
-               <div className="flex justify-between text-xs text-zinc-400 mb-1">
-                 <span>Calorie Adherence</span>
-                 <span>85%</span>
-               </div>
-               <Progress value={85} className="h-2 bg-zinc-800 [&>div]:bg-blue-500" />
-             </div>
+          <CardContent>
+            {healthData.length > 0 ? (
+              <div className="space-y-4">
+                {[...healthData].reverse().slice(0, 5).map((entry, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-white p-3 rounded-full shadow-sm">
+                        <Activity className="text-teal-500 w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-slate-800 capitalize">{entry.activityType}</p>
+                        <p className="text-sm text-slate-500">{new Date(entry.timestamp).toLocaleString()}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-bold text-slate-800">{entry.calories} kcal</p>
+                      <p className="text-sm text-slate-500">{entry.steps} steps</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-slate-400">No recent activity found. Add some data!</div>
+            )}
           </CardContent>
         </Card>
 

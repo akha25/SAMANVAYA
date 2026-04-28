@@ -75,17 +75,17 @@ export default function DietPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Daily Summary */}
-        <Card className="col-span-2 bg-zinc-900 border-zinc-800 text-zinc-100">
+        <Card className="col-span-2 bg-white border-slate-100 text-slate-800">
           <CardHeader>
             <CardTitle>Daily Summary</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col md:flex-row gap-8 items-center">
             {/* Simple Calorie Donut */}
-            <div className="relative w-40 h-40 flex items-center justify-center rounded-full border-8 border-zinc-800">
+            <div className="relative w-40 h-40 flex items-center justify-center rounded-full border-8 border-slate-100">
               <div className="absolute inset-0 rounded-full border-8 border-blue-500" style={{ clipPath: `polygon(0 0, 100% 0, 100% 100%, 0 100%)`, opacity: 0.8 }} />
               <div className="text-center">
                 <span className="text-2xl font-bold">{consumed}</span>
-                <span className="block text-sm text-zinc-400">/ {dailyGoal} kcal</span>
+                <span className="block text-sm text-slate-500">/ {dailyGoal} kcal</span>
               </div>
             </div>
 
@@ -94,36 +94,36 @@ export default function DietPage() {
               <div>
                 <div className="flex justify-between text-sm mb-1">
                   <span>Protein</span>
-                  <span className="text-zinc-400">{macros.protein}g</span>
+                  <span className="text-slate-500">{macros.protein}g</span>
                 </div>
-                <Progress value={60} className="bg-zinc-800 [&>div]:bg-red-500 h-2" />
+                <Progress value={60} className="bg-slate-50 [&>div]:bg-red-500 h-2" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
                   <span>Carbs</span>
-                  <span className="text-zinc-400">{macros.carbs}g</span>
+                  <span className="text-slate-500">{macros.carbs}g</span>
                 </div>
-                <Progress value={45} className="bg-zinc-800 [&>div]:bg-green-500 h-2" />
+                <Progress value={45} className="bg-slate-50 [&>div]:bg-green-500 h-2" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
                   <span>Fat</span>
-                  <span className="text-zinc-400">{macros.fat}g</span>
+                  <span className="text-slate-500">{macros.fat}g</span>
                 </div>
-                <Progress value={30} className="bg-zinc-800 [&>div]:bg-yellow-500 h-2" />
+                <Progress value={30} className="bg-slate-50 [&>div]:bg-yellow-500 h-2" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Water Tracker */}
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
+        <Card className="bg-white border-slate-100 text-slate-800">
           <CardHeader>
             <CardTitle>Water Intake</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center space-y-4">
-            <div className="text-4xl font-bold text-blue-400">{waterGlasses} <span className="text-lg text-zinc-400">/ 8</span></div>
-            <p className="text-sm text-zinc-400">glasses (250ml each)</p>
+            <div className="text-4xl font-bold text-blue-400">{waterGlasses} <span className="text-lg text-slate-500">/ 8</span></div>
+            <p className="text-sm text-slate-500">glasses (250ml each)</p>
             <Button onClick={() => setWaterGlasses(Math.min(8, waterGlasses + 1))} className="bg-blue-600 hover:bg-blue-700 w-full mt-4">
               + Add Glass
             </Button>
@@ -133,7 +133,7 @@ export default function DietPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Food Search */}
-        <Card className="bg-zinc-900 border-zinc-800 text-zinc-100">
+        <Card className="bg-white border-slate-100 text-slate-800">
           <CardHeader>
             <CardTitle>Food Search</CardTitle>
           </CardHeader>
@@ -143,16 +143,16 @@ export default function DietPage() {
                 placeholder="Search food (e.g. Banana)"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-zinc-800 border-zinc-700"
+                className="bg-slate-50 border-slate-200"
               />
-              <Button onClick={handleSearch} className="bg-zinc-800 text-white hover:bg-zinc-700">Search</Button>
+              <Button onClick={handleSearch} className="bg-slate-50 text-slate-800 hover:bg-slate-100">Search</Button>
             </div>
             
             <div className="max-h-60 overflow-y-auto space-y-2">
               {searchResults.slice(0, 5).map((food) => (
-                <div key={food.id} className="p-3 bg-zinc-800 rounded-md flex justify-between items-center cursor-pointer hover:bg-zinc-700" onClick={() => setSelectedFood(food)}>
+                <div key={food.id} className="p-3 bg-slate-50 rounded-md flex justify-between items-center cursor-pointer hover:bg-slate-100" onClick={() => setSelectedFood(food)}>
                   <span className="font-medium text-sm truncate max-w-[200px]">{food.product_name || 'Unknown'}</span>
-                  <span className="text-xs text-zinc-400">{food.nutriments["energy-kcal_100g"] || 0} kcal/100g</span>
+                  <span className="text-xs text-slate-500">{food.nutriments["energy-kcal_100g"] || 0} kcal/100g</span>
                 </div>
               ))}
             </div>
@@ -160,7 +160,7 @@ export default function DietPage() {
         </Card>
 
         {/* Meal Logger */}
-        <Card className={`bg-zinc-900 border-zinc-800 text-zinc-100 ${!selectedFood ? 'opacity-50 pointer-events-none' : ''}`}>
+        <Card className={`bg-white border-slate-100 text-slate-800 ${!selectedFood ? 'opacity-50 pointer-events-none' : ''}`}>
           <CardHeader>
             <CardTitle>Log Meal</CardTitle>
           </CardHeader>
@@ -171,9 +171,9 @@ export default function DietPage() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm text-zinc-400">Meal Type</label>
+                    <label className="text-sm text-slate-500">Meal Type</label>
                     <Select onValueChange={(val) => setMealType(val || "")} value={mealType}>
-                      <SelectTrigger className="bg-zinc-800 border-zinc-700">
+                      <SelectTrigger className="bg-slate-50 border-slate-200">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -186,26 +186,26 @@ export default function DietPage() {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm text-zinc-400">Portion (g)</label>
-                    <Input type="number" value={portion} onChange={(e) => setPortion(Number(e.target.value))} className="bg-zinc-800 border-zinc-700" />
+                    <label className="text-sm text-slate-500">Portion (g)</label>
+                    <Input type="number" value={portion} onChange={(e) => setPortion(Number(e.target.value))} className="bg-slate-50 border-slate-200" />
                   </div>
                 </div>
 
-                <div className="bg-zinc-800 p-4 rounded-lg flex justify-between text-sm">
+                <div className="bg-slate-50 p-4 rounded-lg flex justify-between text-sm">
                   <div>
-                    <span className="block text-zinc-400">Calories</span>
+                    <span className="block text-slate-500">Calories</span>
                     <span className="font-bold">{((selectedFood.nutriments["energy-kcal_100g"] || 0) * (portion/100)).toFixed(0)}</span>
                   </div>
                   <div>
-                    <span className="block text-zinc-400">Protein</span>
+                    <span className="block text-slate-500">Protein</span>
                     <span className="font-bold">{((selectedFood.nutriments.proteins_100g || 0) * (portion/100)).toFixed(1)}g</span>
                   </div>
                   <div>
-                    <span className="block text-zinc-400">Carbs</span>
+                    <span className="block text-slate-500">Carbs</span>
                     <span className="font-bold">{((selectedFood.nutriments.carbohydrates_100g || 0) * (portion/100)).toFixed(1)}g</span>
                   </div>
                   <div>
-                    <span className="block text-zinc-400">Fat</span>
+                    <span className="block text-slate-500">Fat</span>
                     <span className="font-bold">{((selectedFood.nutriments.fat_100g || 0) * (portion/100)).toFixed(1)}g</span>
                   </div>
                 </div>
@@ -215,7 +215,7 @@ export default function DietPage() {
                 </Button>
               </>
             ) : (
-              <p className="text-sm text-zinc-500 py-8 text-center">Select a food from the search to log it.</p>
+              <p className="text-sm text-slate-400 py-8 text-center">Select a food from the search to log it.</p>
             )}
           </CardContent>
         </Card>

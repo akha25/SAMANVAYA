@@ -19,7 +19,9 @@ mongoose.connect(process.env.MONGO_URI).catch((error) => {
 app.use('/api/auth', require('./src/routes/auth'));
 app.use('/api/diet', require('./src/routes/diet'));
 app.use('/api/workout', require('./src/routes/workout'));
-app.use('/api/health', require('./src/routes/bmi')); // mapped to health as requested
+app.use('/api/health', require('./src/routes/healthData')); // Updated to point to new healthData
+app.use('/api/bmi', require('./src/routes/bmi')); // Keep bmi routes separately just in case
+app.use('/api/requests', require('./src/routes/requests'));
 app.use('/api/ai', require('./src/routes/ai'));
 app.use('/api/community', require('./src/routes/community'));
 app.use('/api/blog', require('./src/routes/community')); // mapped blog routes as requested

@@ -58,11 +58,11 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 p-4">
-      <Card className="w-full max-w-md bg-zinc-900 border-zinc-800 text-zinc-100">
+    <div className="flex min-h-screen items-center justify-center bg-[#F8FAFC] p-4">
+      <Card className="w-full max-w-md bg-white border-slate-100 text-slate-800">
         <CardHeader>
           <CardTitle className="text-2xl font-bold tracking-tight">Let's get to know you</CardTitle>
-          <CardDescription className="text-zinc-400">Step {step} of 4</CardDescription>
+          <CardDescription className="text-slate-500">Step {step} of 4</CardDescription>
         </CardHeader>
         <CardContent>
           {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
@@ -71,12 +71,12 @@ export default function OnboardingPage() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label>Age</Label>
-                <Input type="number" value={age} onChange={(e) => setAge(e.target.value)} className="bg-zinc-800 border-zinc-700" />
+                <Input type="number" value={age} onChange={(e) => setAge(e.target.value)} className="bg-slate-50 border-slate-200" />
               </div>
               <div className="space-y-2">
                 <Label>Gender</Label>
                 <Select onValueChange={(val) => setGender(val || "")} value={gender}>
-                  <SelectTrigger className="bg-zinc-800 border-zinc-700">
+                  <SelectTrigger className="bg-slate-50 border-slate-200">
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
                   <SelectContent>
@@ -93,11 +93,11 @@ export default function OnboardingPage() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label>Height (cm)</Label>
-                <Input type="number" value={height} onChange={(e) => setHeight(e.target.value)} className="bg-zinc-800 border-zinc-700" />
+                <Input type="number" value={height} onChange={(e) => setHeight(e.target.value)} className="bg-slate-50 border-slate-200" />
               </div>
               <div className="space-y-2">
                 <Label>Weight (kg)</Label>
-                <Input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="bg-zinc-800 border-zinc-700" />
+                <Input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="bg-slate-50 border-slate-200" />
               </div>
             </div>
           )}
@@ -107,7 +107,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>What is your goal?</Label>
                 <Select onValueChange={(val) => setGoal(val || "")} value={goal}>
-                  <SelectTrigger className="bg-zinc-800 border-zinc-700">
+                  <SelectTrigger className="bg-slate-50 border-slate-200">
                     <SelectValue placeholder="Select a goal" />
                   </SelectTrigger>
                   <SelectContent>
@@ -121,7 +121,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Activity Level</Label>
                 <Select onValueChange={(val) => setActivityLevel(val || "")} value={activityLevel}>
-                  <SelectTrigger className="bg-zinc-800 border-zinc-700">
+                  <SelectTrigger className="bg-slate-50 border-slate-200">
                     <SelectValue placeholder="Select activity level" />
                   </SelectTrigger>
                   <SelectContent>
@@ -139,7 +139,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Diet Preference</Label>
                 <Select onValueChange={(val) => setDietType(val || "")} value={dietType}>
-                  <SelectTrigger className="bg-zinc-800 border-zinc-700">
+                  <SelectTrigger className="bg-slate-50 border-slate-200">
                     <SelectValue placeholder="Select diet type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -155,13 +155,13 @@ export default function OnboardingPage() {
           )}
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={handlePrev} disabled={step === 1} className="border-zinc-700 text-zinc-300">
+          <Button variant="outline" onClick={handlePrev} disabled={step === 1} className="border-slate-200 text-slate-600">
             Back
           </Button>
           {step < 4 ? (
-            <Button onClick={handleNext} className="bg-blue-600 hover:bg-blue-700 text-white">Next</Button>
+            <Button onClick={handleNext} className="bg-blue-600 hover:bg-blue-700 text-slate-800">Next</Button>
           ) : (
-            <Button onClick={handleSubmit} className="bg-blue-600 hover:bg-blue-700 text-white">Complete</Button>
+            <Button onClick={handleSubmit} className="bg-blue-600 hover:bg-blue-700 text-slate-800">Complete</Button>
           )}
         </CardFooter>
       </Card>
