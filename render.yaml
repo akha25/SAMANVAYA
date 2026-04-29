@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: samanvaya-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false # Requires manual entry in dashboard
+      - key: JWT_SECRET
+        generateValue: true
