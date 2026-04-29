@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { Activity, Loader2, Dumbbell, Apple, HeartPulse } from "lucide-react";
 
 import api from "@/lib/api";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -47,8 +48,11 @@ export default function LoginPage() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-md"
+          className="w-full max-w-md relative"
         >
+          <div className="absolute -top-12 right-0">
+            <ThemeToggle />
+          </div>
           <div className="mb-10 text-center lg:text-left">
             <Link href="/" className="inline-flex items-center gap-2 font-bold text-2xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-500 mb-8">
               <Activity className="text-teal-500" /> SAMANVAYA

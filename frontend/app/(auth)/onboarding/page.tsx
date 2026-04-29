@@ -10,6 +10,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Check, Target, Activity, Apple, Scale } from "lucide-react";
 import { toast } from "react-hot-toast";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function OnboardingPage() {
   const [step, setStep] = useState(1);
@@ -78,6 +79,9 @@ export default function OnboardingPage() {
       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="w-full max-w-2xl relative z-10">
+        <div className="absolute -top-16 right-4 sm:-top-12 sm:right-0">
+          <ThemeToggle />
+        </div>
         
         {/* Progress Bar */}
         <div className="mb-8 px-4">

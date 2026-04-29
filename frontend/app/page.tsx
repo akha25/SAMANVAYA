@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Activity, Apple, Dumbbell, Bot, Users, Trophy, CheckCircle2, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function LandingPage() {
   const staggerContainer = {
@@ -34,7 +35,8 @@ export default function LandingPage() {
             <a href="#ai-coach" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">AI Coach</a>
             <a href="#pricing" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Pricing</a>
           </div>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
             <Link href="/login">
               <Button variant="ghost" className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-xl transition-all">
                 Sign In
