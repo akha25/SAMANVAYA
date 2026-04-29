@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Apple, Dumbbell, Activity, Bot, Users, UserCircle, Search, Menu, X, LogOut, Moon, Sun } from "lucide-react";
+import { Home, Apple, Dumbbell, Activity, Bot, Users, UserCircle, Search, Menu, X, LogOut, Moon, Sun, Library, CalendarDays, TrendingUp, Calculator } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,13 +13,54 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  useEffect(() => setMounted(true), []);
+  const [userName, setUserName] = useState("User");
+  const [userRole, setUserRole] = useState("Member");
+
+  useEffect(() => {
+    setMounted(true);
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const res = await fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/auth/me` : 'http://localhost:5000/api/auth/me', {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            localStorage.setItem("user", JSON.stringify(data));
+            if (data.name) setUserName(data.name.split(" ")[0]);
+            if (data.role) setUserRole(data.role === 'admin' ? 'Administrator' : 'Premium Member');
+            else setUserRole('Premium Member');
+            return;
+          }
+        }
+        const userStr = localStorage.getItem("user");
+        if (userStr) {
+          const user = JSON.parse(userStr);
+          if (user.name) {
+            setUserName(user.name.split(" ")[0]);
+          }
+          if (user.role) {
+            setUserRole(user.role === 'admin' ? 'Administrator' : 'Premium Member');
+          } else {
+            setUserRole('Premium Member');
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const navItems = [
     { name: "Overview", href: "/dashboard", icon: Home },
     { name: "Add Data", href: "/dashboard/add-data", icon: Activity },
     { name: "Diet", href: "/dashboard/diet", icon: Apple },
-    { name: "Workout", href: "/dashboard/workout", icon: Dumbbell },
+    { name: "Exercise Library", href: "/dashboard/workout/exercises", icon: Library },
+    { name: "Workout Plans", href: "/dashboard/workout/plans", icon: CalendarDays },
+    { name: "My Workouts", href: "/dashboard/workout/my-workouts", icon: TrendingUp },
+    { name: "Calculator", href: "/dashboard/calculator", icon: Calculator },
     { name: "Requests", href: "/dashboard/requests", icon: Users },
     { name: "AI Coach", href: "/dashboard/ai-coach", icon: Bot },
   ];
@@ -136,8 +177,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             )}
             <Link href="/dashboard/profile" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <div className="hidden md:block text-right">
-                <p className="text-sm font-semibold leading-none">Alex</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Premium Member</p>
+                <p className="text-sm font-semibold leading-none capitalize">{userName}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{userRole}</p>
               </div>
               <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-teal-500 to-blue-500 p-0.5 shadow-md shadow-teal-500/20">
                 <div className="w-full h-full rounded-full bg-white dark:bg-slate-900 border-2 border-transparent flex items-center justify-center overflow-hidden">

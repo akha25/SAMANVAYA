@@ -29,13 +29,32 @@ export default function ProfileSettingsPage() {
   });
 
   useEffect(() => {
-    const userStr = localStorage.getItem('user');
-    if (userStr) {
-      setUser(JSON.parse(userStr));
-    } else {
-      // Mock user for demo purposes
-      setUser({ name: "Alex Johnson", email: "alex.j@example.com", role: "pro", createdAt: "2026-01-15T00:00:00Z" });
-    }
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const res = await fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/auth/me` : 'http://localhost:5000/api/auth/me', {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            localStorage.setItem("user", JSON.stringify(data));
+            setUser(data);
+            return;
+          }
+        }
+        const userStr = localStorage.getItem('user');
+        if (userStr) {
+          setUser(JSON.parse(userStr));
+        } else {
+          // Mock user for demo purposes
+          setUser({ name: "Alex Johnson", email: "alex.j@example.com", role: "pro", createdAt: "2026-01-15T00:00:00Z" });
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchUser();
   }, []);
 
   const toggleNotification = (key: keyof typeof notifications) => {

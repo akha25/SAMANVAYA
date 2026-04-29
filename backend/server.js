@@ -25,7 +25,10 @@ app.use('/api/requests', require('./src/routes/requests'));
 app.use('/api/ai', require('./src/routes/ai'));
 app.use('/api/community', require('./src/routes/community'));
 app.use('/api/blog', require('./src/routes/community')); // mapped blog routes as requested
-
+app.use('/api/exercises', require('./src/routes/exercises'));
+app.use('/api/plans', require('./src/routes/workoutPlans'));
+app.use('/api/sessions', require('./src/routes/sessions'));
+app.use('/api/calculator', require('./src/routes/calculator'));
 // Basic Route
 app.get('/', (req, res) => {
   res.send('SAMANVAYA Health Connect API');

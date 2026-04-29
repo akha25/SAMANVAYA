@@ -282,10 +282,8 @@ export default function WorkoutPage() {
                           
                           <div className="mt-auto">
                             <Dialog>
-                              <DialogTrigger asChild>
-                                <Button variant="outline" className="w-full border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl font-semibold">
-                                  View Demo <ChevronRight size={16} className="ml-1" />
-                                </Button>
+                              <DialogTrigger className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl font-semibold text-sm h-9 inline-flex items-center justify-center transition-colors">
+                                View Demo <ChevronRight size={16} className="ml-1" />
                               </DialogTrigger>
                               <DialogContent className="bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 rounded-[2rem] p-0 overflow-hidden sm:max-w-lg">
                                 <div className={`h-2 w-full bg-gradient-to-r ${ex.color}`}></div>
@@ -326,6 +324,6 @@ export default function WorkoutPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }

@@ -16,10 +16,24 @@ export default function DashboardOverviewPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userStr = localStorage.getItem('user');
-        if (userStr) {
-          const user = JSON.parse(userStr);
-          setUserName(user.name?.split(' ')[0] || "User");
+        const token = localStorage.getItem("token");
+        if (token) {
+          try {
+            const userRes = await fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/auth/me` : 'http://localhost:5000/api/auth/me', {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+            if (userRes.ok) {
+              const data = await userRes.json();
+              localStorage.setItem("user", JSON.stringify(data));
+              setUserName(data.name?.split(' ')[0] || "User");
+            }
+          } catch (e) {}
+        } else {
+          const userStr = localStorage.getItem('user');
+          if (userStr) {
+            const user = JSON.parse(userStr);
+            setUserName(user.name?.split(' ')[0] || "User");
+          }
         }
 
         const res = await api.get('/health/get');
