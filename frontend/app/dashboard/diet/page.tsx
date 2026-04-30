@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { motion } from "framer-motion";
-import { Search, Droplets, Plus, Utensils, Info, Check } from "lucide-react";
+import { Search, Droplets, Plus, Utensils, Info, Check, Apple } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 export default function DietPage() {
@@ -85,7 +85,7 @@ export default function DietPage() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
   };

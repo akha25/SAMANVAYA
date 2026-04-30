@@ -57,7 +57,7 @@ export default function DashboardOverviewPage() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
   };
@@ -246,7 +246,7 @@ export default function DashboardOverviewPage() {
                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="currentColor" className="text-slate-200 dark:text-slate-800/50" />
                      <XAxis dataKey="date" stroke="currentColor" className="text-slate-400" fontSize={12} tickLine={false} axisLine={false} />
                      <YAxis stroke="currentColor" className="text-slate-400" fontSize={12} tickLine={false} axisLine={false} />
-                     <Tooltip content={<CustomTooltip />} cursor={{ fill: 'currentColor', opacity: 0.05 }} className="text-slate-900 dark:text-white" />
+                     <Tooltip content={<CustomTooltip />} cursor={{ fill: 'currentColor', opacity: 0.05 }} />
                      <Bar dataKey="calories" name="Calories" fill="#3B82F6" radius={[8, 8, 8, 8]} barSize={32} />
                    </BarChart>
                  </ResponsiveContainer>

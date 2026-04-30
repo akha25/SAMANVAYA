@@ -123,7 +123,7 @@ export default function AddHealthDataPage() {
                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
                     <ActivitySquare size={18} className="text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                   </div>
-                  <Select onValueChange={(val: string) => setFormData({...formData, activityType: val})}>
+                  <Select onValueChange={(val: any) => setFormData({...formData, activityType: val ? String(val) : ""})}>
                     <SelectTrigger className="pl-11 py-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-blue-500 focus:bg-white dark:focus:bg-slate-900 transition-all text-base dark:text-slate-100">
                       <SelectValue placeholder="Select activity" />
                     </SelectTrigger>

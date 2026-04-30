@@ -20,7 +20,7 @@ export function ExerciseCard({ exercise }: { exercise: any }) {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger>
         <motion.div
           whileHover={{ scale: 1.03 }}
           transition={{ duration: 0.2 }}

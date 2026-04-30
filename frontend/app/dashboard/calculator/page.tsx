@@ -104,7 +104,7 @@ export default function CalculatorPage() {
               </div>
               <div className="space-y-2">
                 <Label className="text-slate-600 dark:text-slate-400 font-bold ml-1">Gender</Label>
-                <Select value={form.gender} onValueChange={(v) => setForm({...form, gender: v})}>
+                <Select value={form.gender} onValueChange={(v) => setForm({...form, gender: v || ""})}>
                   <SelectTrigger className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 h-12 rounded-xl text-lg px-4 font-semibold capitalize">
                     <SelectValue />
                   </SelectTrigger>
@@ -139,7 +139,7 @@ export default function CalculatorPage() {
 
             <div className="space-y-2">
               <Label className="text-slate-600 dark:text-slate-400 font-bold ml-1">Activity Level</Label>
-              <Select value={form.activityLevel} onValueChange={(v) => setForm({...form, activityLevel: v})}>
+              <Select value={form.activityLevel} onValueChange={(v) => setForm({...form, activityLevel: v || ""})}>
                 <SelectTrigger className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 h-12 rounded-xl text-base px-4 font-semibold capitalize">
                   <SelectValue />
                 </SelectTrigger>
@@ -155,7 +155,7 @@ export default function CalculatorPage() {
 
             <div className="space-y-2">
               <Label className="text-slate-600 dark:text-slate-400 font-bold ml-1">Goal</Label>
-              <Select value={form.goal} onValueChange={(v) => setForm({...form, goal: v})}>
+              <Select value={form.goal} onValueChange={(v) => setForm({...form, goal: v || ""})}>
                 <SelectTrigger className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 h-12 rounded-xl text-base px-4 font-semibold capitalize">
                   <SelectValue />
                 </SelectTrigger>
@@ -259,7 +259,7 @@ export default function CalculatorPage() {
                     ))}
                   </Pie>
                   <Tooltip 
-                    formatter={(value: number) => [`${Math.round(value)} kcal`, 'Calories']}
+                    formatter={(value: any) => [`${Math.round(value || 0)} kcal`, 'Calories']}
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
                   />
                   <Legend verticalAlign="bottom" height={36} />

@@ -158,7 +158,7 @@ export default function RequestsPage() {
                     </div>
                     <div className="space-y-2 relative group">
                       <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Urgency</label>
-                      <Select onValueChange={(val) => setFormData({...formData, urgency: val})} value={formData.urgency}>
+                      <Select onValueChange={(val) => setFormData({...formData, urgency: val || ""})} value={formData.urgency}>
                         <SelectTrigger className="py-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-teal-500 focus:bg-white dark:focus:bg-slate-900 transition-all text-base dark:text-slate-100">
                           <SelectValue placeholder="Select urgency" />
                         </SelectTrigger>

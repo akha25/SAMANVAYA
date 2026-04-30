@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function LandingPage() {
-  const staggerContainer = {
+  const staggerContainer: any = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -15,7 +15,7 @@ export default function LandingPage() {
     }
   };
 
-  const fadeInUp = {
+  const fadeInUp: any = {
     hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
   };
