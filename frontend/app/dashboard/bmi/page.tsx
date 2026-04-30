@@ -55,7 +55,8 @@ export default function BMIPage() {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      await fetch("http://localhost:5000/api/health/log", {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      await fetch(`${API_URL}/health/log`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

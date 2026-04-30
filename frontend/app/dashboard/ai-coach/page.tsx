@@ -38,7 +38,8 @@ export default function AICoachPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/ai/chat", {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const res = await fetch(`${API_URL}/ai/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

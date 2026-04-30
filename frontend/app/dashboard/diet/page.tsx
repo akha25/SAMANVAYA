@@ -49,7 +49,8 @@ export default function DietPage() {
 
     try {
       const token = localStorage.getItem("token");
-      await fetch("http://localhost:5000/api/diet/log", {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      await fetch(`${API_URL}/diet/log`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -47,7 +47,8 @@ export default function WorkoutPage() {
 
     try {
       const token = localStorage.getItem("token");
-      await fetch("http://localhost:5000/api/workout/log", {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      await fetch(`${API_URL}/workout/log`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
